@@ -1,22 +1,55 @@
-# LLEOGAME Translations — HUD de catálogo
+# LLEOGAME — Traduções de jogos
 
-Versão com uma HUD simples: lista de jogos em capas à esquerda e painel de detalhes ao selecionar um jogo.
+Catálogo de projetos independentes de tradução para português brasileiro. O site usa Vite e navegação por hash, para funcionar como site estático no Render.
 
-## Publicar atualização
-1. Substitua os arquivos do repositório GitHub pelos arquivos desta pasta.
-2. Mantenha o Root Directory do Render como `lleogame-translations`.
-3. O Render fará novo deploy automaticamente após o commit.
+## Rodar localmente
 
-## Cadastrar/editar jogos
-Edite o array `games` no início de `src/main.js`.
-Cada jogo possui:
-- `title`: nome do jogo
-- `platform`: plataforma
-- `genre`: gênero
-- `status`: Em andamento, Concluído ou Planejado
-- `description`: informações
-- `cover`: URL da imagem da capa
-- `link`: link público da tradução (deixe vazio se ainda não existir)
-- `version`: versão atual
+1. Instale Node.js (versão LTS).
+2. Abra o terminal nesta pasta.
+3. Execute:
 
-Os links de download só aparecem quando `link` tiver uma URL.
+```bash
+npm install
+npm run dev
+```
+
+4. Abra o endereço local indicado pelo Vite.
+
+Para testar a versão de produção:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Publicar no Render
+
+Configuração do Static Site:
+
+- **Root Directory:** `lleogame-translations` (se a pasta do projeto estiver dentro da raiz do repositório)
+- **Build Command:** `npm install && npm run build`
+- **Publish Directory:** `dist`
+
+O site usa rotas com `#`, então as páginas individuais funcionam em hospedagem estática sem configurar regras extras de redirecionamento.
+
+## Como cadastrar ou editar um projeto
+
+Abra `src/main.js` e localize o array `projects`, no início do arquivo. Cada projeto possui:
+
+- `id`: identificador usado no endereço `#/projeto/ID`.
+- `title`, `platform`, `description` e `tags`: informações exibidas no catálogo e na ficha.
+- `status`: use `Em andamento`, `Em preparação`, `Planejado` ou `Concluído`.
+- `team`: créditos da equipe.
+- `progressItems`: etapas e situação do desenvolvimento. Não informe porcentagens sem uma medição real.
+- `gallery`: imagens do projeto, com `src`, `alt` e `caption`.
+- `versions`: histórico de versões publicadas.
+- `downloads`: arquivos públicos. Cada item usa `label`, `description` e `url`.
+
+Para adicionar imagens, coloque os arquivos na pasta `public/images/` e use caminhos como `/images/nome-do-arquivo.png` em `cover` (capa) ou em `gallery` (capturas). As artes atuais dos cards são provisórias e geradas por CSS; não são capas oficiais dos jogos.
+
+## Observações
+
+- Os dados do catálogo são editados no código e publicados por commit no GitHub.
+- Este site ainda não possui painel administrativo, login, banco de dados ou formulário de contato funcional.
+- Botões de download só aparecem como links quando há um endereço real informado em `downloads`.
+- Não distribua cópias dos jogos. Publique apenas patches e arquivos que você tenha direito de compartilhar.
